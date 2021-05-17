@@ -9,6 +9,7 @@ import PinnedMessage from './PinnedMessage'
 import ChatBox from './ChatBox'
 import { SocketContext } from '../../App'
 import { MESSAGE_TYPES } from '../../constants'
+import chatbg from './chatbg.jpg'
 
 class User {
   constructor(id, name, avatar) {
@@ -103,9 +104,6 @@ const ChatComponent = () => {
       1620130405900,
     ),
   )
-  yourMessageGroup.addMessage(
-    new Message(MESSAGE_TYPES.sticker, doge, 1620130405930),
-  )
 
   useEffect(() => {
     console.log('setting up to listen to roam broadcasted messages')
@@ -135,14 +133,19 @@ const ChatComponent = () => {
         return [...messageGroups, messageGroup]
       })
     })
-    // setMessageGroups([...messageGroups, myMessageGroup, yourMessageGroup])
+    setMessageGroups([...messageGroups, myMessageGroup, yourMessageGroup])
   }, [socket])
 
   return (
     <>
       <PinnedMessage />
       <div
-        style={{ maxHeight: 380 }}
+        style={{
+          maxHeight: 380,
+          backgroundImage: `url(${chatbg})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }}
         className="flex-grow flex w-full flex-col p-2 overflow-y-scroll"
       >
         {messageGroups.map((messageGroup, idx) => {

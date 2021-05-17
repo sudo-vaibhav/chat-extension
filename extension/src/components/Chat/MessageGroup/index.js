@@ -1,10 +1,13 @@
 import React from 'react'
+import { me } from '../'
 import MessageComponent from './Message'
 const MessageGroupComponent = ({ messageGroup }) => {
   // finding messages in message group where 2 stickers are present together
   const messages = messageGroup.messages
   const stickerIndices = []
   const toSkip = []
+
+  const isMine = messageGroup.sender.id === me.id
   for (let i = 0; i < messages.length - 1; i++) {
     if (messages[i].type === 'sticker' && messages[i + 1].type === 'sticker') {
       stickerIndices.push(i)
@@ -16,7 +19,7 @@ const MessageGroupComponent = ({ messageGroup }) => {
   return (
     <div
       className={`flex items-end w-3/4 my-2 ${
-        messageGroup.sender.id === '69' ? 'self-end flex-row-reverse' : ''
+        isMine ? 'self-end flex-row-reverse' : ''
       }`}
     >
       <img
@@ -40,7 +43,9 @@ const MessageGroupComponent = ({ messageGroup }) => {
               </div>
             )
           } else if (!toSkip.includes(idx)) {
-            return <MessageComponent message={message} key={idx} />
+            return (
+              <MessageComponent message={message} key={idx} isMine={isMine} />
+            )
           }
           return null
         })}

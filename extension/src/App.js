@@ -6,6 +6,7 @@ import bg from './bg.png'
 import { io } from 'socket.io-client'
 
 const SocketContext = createContext(null)
+const WINDOW_WIDTH = 400
 
 function App() {
   const [voiceChatOn, setVoiceChatOn] = useState(false)
@@ -48,7 +49,7 @@ function App() {
             className="flex flex-col bg-white"
             style={{
               height: 550,
-              width: 400,
+              width: WINDOW_WIDTH,
             }}
           >
             <Header onClick={() => setVoiceChatOn(!voiceChatOn)} />
@@ -60,5 +61,5 @@ function App() {
   )
 }
 
-export { SocketContext }
+export { SocketContext, WINDOW_WIDTH }
 export default App

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MessageComponent = ({ message, twoStickersInARow }) => {
+const MessageComponent = ({ message, twoStickersInARow, isMine }) => {
   return (
     <div className="mx-2 flex-grow">
       <div className="my-1">
@@ -11,7 +11,11 @@ const MessageComponent = ({ message, twoStickersInARow }) => {
             <source src={message.content}></source>
           </video>
         ) : message.type === 'text' ? (
-          <div className="text-sm p-2 bg-gray-200 rounded-lg rounded-bl-none">
+          <div
+            className={`text-sm p-2 bg-gray-200 rounded-lg ${
+              isMine ? 'rounded-br-none' : 'rounded-bl-none'
+            }`}
+          >
             {message.content}
             <div className="flex text-xs text-gray-500 justify-end">
               {message.getTime()}
